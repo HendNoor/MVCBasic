@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @*<link href=""*@
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item"><a asp-controller="Home" asp-action="About">About</a></li>
+                <li class="nav-item"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                <li class="nav-item"><a asp-controller="Home" asp-action="Projects">Projects</a></li>
+                <li class="nav-item"><a asp-controller="Doctor" asp-action="CheckFever">Doctor</a></li>
+                <li class="nav-item"><a asp-controller="Guessing" asp-action="GuessingGame">Game</a></li>
+
+            </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container-center">
+        @RenderBody()
+    </div>
+    <footer class="container-bottom">
+        <p>&copy; HendNoor - @DateTime.Now.ToString("yyyy-MM-dd")</p>
+    </footer>
+</body>
+</html>
