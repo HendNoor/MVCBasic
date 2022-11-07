@@ -1,21 +1,43 @@
-﻿namespace WebApplication1.Models
+﻿namespace WebApplication1.Models;
+
+public static class GuessingGame
 {
-    public class GuessingGame
+    public static int SecretNum { get; set; }
+
+    public static int attempts = 0;
+    public static string GuessNumber(int userGuess, int secretNum)
     {
-        public bool IsCorrect { get; set; } = false;
-        public string IsCorrectNo(int guess, int secretNo)
+        string message = "";
+        attempts++;
+        if (userGuess < 0 || userGuess > 100)
         {
-            if (guess > secretNo)
+            message = "Invalid guess! Gussed number must be between 1 and 100";
+            return message;
+        }
+        else
+        {
+            if (userGuess > secretNum)
             {
-                return "Your guess was greater than the target";
+                message = "Your guess is too high!";
             }
-            else if (guess < secretNo)
+            else if (userGuess < secretNum)
             {
-                return "Your guess was lesser than the target";
+                message = "Your guess is too low!";
+            }
+            else if (userGuess == secretNum)
+            {
+                attempts = -1;
+                message = "You have guessed the right number! Try guessing the new number";
             }
 
-            IsCorrect = true;
-            return "Your guess was correct. Congratulations! Guess again";
         }
+        return message;
+
+    }
+    public static int GenerateNewNumber()
+    {
+        Random rand = new Random();
+        SecretNum = rand.Next(1, 101);
+        return SecretNum;
     }
 }

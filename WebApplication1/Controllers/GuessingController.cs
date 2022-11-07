@@ -5,31 +5,30 @@ namespace WebApplication1.Controllers
 {
     public class GuessingController : Controller
     {
-        Random random = new Random();
-        public int randomTarget { get; set; }
+        
 
-        public IActionResult GuessingGame()
+        public IActionResult Guess()
         {
-            randomTarget = random.Next(0, 100);
-
-            if (HttpContext.Session.GetString("Number") == null)
+            if (String.IsNullOrEmpty(HttpContext.Session.GetInt32("number").ToString()))
             {
-                HttpContext.Session.SetInt32("Number", randomTarget);
+                //Create session and store random number in it
+                int generated = GuessingGame.GenerateNewNumber();
+                HttpContext.Session.SetInt32("number",generated);
             }
             return View();
         }
 
         [HttpPost]
-        public IActionResult GuessViews(int guessNumber)
+        public IActionResult Guess(int guessedNumber)
         {
-            int guessNum = HttpContext.Session.GetInt32("Number");
-
-            //ViewBag.Msg = Models.GuessingGame.IsCorrectNo(guessNumber, guessNum);
-            //if (GuessingGame.IsCorrect)
-            //{
-            //    HttpContext.Session.GetInt32("Number");
-            //}
-
+            //Test if guess was correct. If so, restaret game. Test with session data
+            ViewBag.Message = GuessingGame.GuessNumber(guessedNumber, (int)HttpContext.Session.GetInt32("number"));
+            if (GuessingGame.attempts ==-1)
+            {
+                //Reset session (and variables)
+                int generated = GuessingGame.GenerateNewNumber();
+                HttpContext.Session.SetInt32("number", generated);
+            }
             return View();
         }
     }
