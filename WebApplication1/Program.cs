@@ -7,6 +7,9 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(20);
 });
 
+builder.Services.AddDistributedMemoryCache();
+
+
 var app = builder.Build();
 
 app.UseStaticFiles(); //enable us to use files in wwwroot//
@@ -22,6 +25,5 @@ app.Run();
 
 
 
-builder.Services.AddDistributedMemoryCache();
 
 
